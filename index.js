@@ -93,8 +93,8 @@ const readmePrompt = () => {
 // // TODO: Create a function to write README file
 // function writeToFile(fileName, data) {}
 
-const getLicenseBadge = (license) => {
-  switch (license) {
+function getLicenseBadge(answers) {
+  switch (answers.license) {
     case 'Academic Free License v3.0':
       licenseBadge = `https://img.shields.io/badge/License-AFL-blue`
       licenseURL = `https://opensource.org/licenses/AFL-3.0`
@@ -141,7 +141,7 @@ const getLicenseBadge = (license) => {
   }
 };
 
-const readmeText = ( {projectName, ghRepo, license, licenseBadge, licenseURL, description, installation, usage, contribution, tests, qProtocol, ghName} ) => {
+const readmeText = ( {projectName, ghRepo, license, description, installation, usage, contribution, tests, qProtocol, ghName} ) => {
   `# [${projectName}](${ghRepo})  [![${license}](${licenseBadge})](${licenseURL})
   
   ## Description
@@ -176,8 +176,16 @@ const readmeText = ( {projectName, ghRepo, license, licenseBadge, licenseURL, de
 // function init() {}
 
 const init = () => {
-  
-}
+  readmePrompt()
+  // getLicenseBadge(answers)
+  .then((answers) =>   
+  console.log(readmeText(answers, getLicenseBadge(answers))))
+  // fs.writeFileSync('README.md', readmeText(answers, getLicenseBadge(answers))))
+  // .then(() => console.log('Looks like we created a README.md...'))  
+  // .catch((err) => console.error(err))
+};
+
+init();
 
 // // Function call to initialize app
 // init();
