@@ -2,26 +2,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-/**
- * title - input
- * 
- * description -input
- * 
- * table of contents - hard-coded (will be the same)
- * 
- * installation
- * 
- * usage
- * 
- * license - options -badge @ top -notice @ bottom
- * 
- * contributing
- * 
- * tests
- * 
- * questions - include github UN and link, how to reach with questions
- */
-// TODO: Create an array of questions for user input
+//prompts build into a function
 const readmePrompt = () => {
   return inquirer.prompt([
     {
@@ -32,12 +13,12 @@ const readmePrompt = () => {
     {
       type: 'input',
       name: 'description',
-      message: 'Write a breif description of your project:'
+      message: 'Write a breif description of your project.'
     },
     {
       type: 'input',
       name: 'installation',
-      message: 'Breifly describe the installation process for your project'
+      message: 'Breifly describe the installation process for your project.'
     },
     {
       type: 'input',
@@ -49,16 +30,16 @@ const readmePrompt = () => {
       name: 'license',
       message: 'What license are you using?',
       choices: [
-        {name: 'Academic Free License v3.0'},
-        {name: 'Apache license 2.0'},
-        {name: 'Creative Commons'},
-        {name: 'Educational Community License v2.0'},
-        {name: 'GNU General Public License'},
-        {name: 'ISC'},
-        {name: 'MIT'},
-        {name: 'Mozilla Public License 2.0'},
-        {name: 'Open Software License 3.0'},
-        {name: 'University of Illinois/NCSA Open Source License'}
+        'Academic Free License v3.0',
+        'Apache license 2.0',
+        'Creative Commons',
+        'Educational Community License v2.0',
+        'GNU General Public License',
+        'ISC',
+        'MIT',
+        'Mozilla Public License 2.0',
+        'Open Software License 3.0',
+        'University of Illinois/NCSA Open Source License'
       ]
     },
     {
@@ -88,11 +69,7 @@ const readmePrompt = () => {
     }
 ])};
 
-
-
-// // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-
+//This function checks the answers for the license entry, runs it through a switch, and returns a url for a license badge as well as a url for the license itself.
 function getLicenseBadge(answers) {
   switch (answers.license) {
     case 'Academic Free License v3.0':
@@ -139,10 +116,12 @@ function getLicenseBadge(answers) {
       licenseBadge = `https://img.shields.io/badge/License-NA-lightgrey`
       licenseURL = `https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository`;
   }
+  return [licenseBadge, licenseURL]
 };
 
-const readmeText = ( {projectName, ghRepo, license, description, installation, usage, contribution, tests, qProtocol, ghName} ) => {
-  `# [${projectName}](${ghRepo})  [![${license}](${licenseBadge})](${licenseURL})
+//This is a deconstruction of the answers object, which is then parsed into the long template literal which provides the README format.
+const readmeText = ( {projectName, ghRepo, license, description, installation, usage, contribution, tests, qProtocol, ghName} ) => 
+  `# [${projectName}](${ghRepo}) [![${license}](${licenseBadge})](${licenseURL})
   
   ## Description
   ${description}
@@ -169,90 +148,17 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, u
   [${projectName}](${ghRepo})
   
   ## License 
-  ${license}`
-};
+  ${license}`;
 
-// // TODO: Create a function to initialize app
-// function init() {}
-
+//Initialization function; calls readmePrompt, and utilizes a promice (then) and then writes the file in a sychonous method WRITE MORE HERE: WHAT IS BENIFIT TO SYCHONOUS FS METHOD?...
 const init = () => {
   readmePrompt()
-  // getLicenseBadge(answers)
-  .then((answers) =>   
-  console.log(readmeText(answers, getLicenseBadge(answers))))
-  // fs.writeFileSync('README.md', readmeText(answers, getLicenseBadge(answers))))
-  // .then(() => console.log('Looks like we created a README.md...'))  
-  // .catch((err) => console.error(err))
+  .then((answers) =>
+  //The fs passes the two text-related functions through, with getLicenseBadge passing through readmeText.
+  fs.writeFileSync('README.md', readmeText(answers, getLicenseBadge(answers))))
+  .then(() => console.log('Looks like we created a README.md...'))  
+  .catch((err) => console.error(err))
 };
 
+//calls init function on app start.
 init();
-
-// // Function call to initialize app
-// init();
-
-
-// inquirer
-//   .prompt([
-//     {
-//         type: 'input',
-//         name: 'projectName',
-//         message: 'What is your project name?'
-//     },
-//     {
-//       type: 'input',
-//       name: 'description',
-//       message: 'Write a breif description of your project:'
-//     },
-//     {
-//       type: 'input',
-//       name: 'installation',
-//       message: 'Breifly describe the installation process for your project'
-//     },
-//     {
-//       type: 'input',
-//       name: 'usage',
-//       message: 'Breifly describe the usage of this project.'
-//     },
-//     {
-//       type: 'list',
-//       name: 'licence',
-//       message: 'What license are you using?',
-//       choices: [
-//         {name: 'Academic Free License v3.0'},
-//         {name: 'Apache license 2.0'},
-//         {name: 'Creative Commons'},
-//         {name: 'Educational Community License v2.0'},
-//         {name: 'GNU General Public License'},
-//         {name: 'ISC'},
-//         {name: 'MIT'},
-//         {name: 'Mozilla Public License 2.0'},
-//         {name: 'Open Software License 3.0'},
-//         {name: 'University of Illinois/NCSA Open Source License'}
-//       ]
-//     },
-//     {
-//       type: 'input',
-//       name: 'contribution',
-//       message: 'Briefly describe how to contribute to this project.'
-//     },
-//     {
-//       type: 'input',
-//       name: 'tests',
-//       message: 'Briefly describe testing of the project.'
-//     },
-//     {
-//       type: 'input',
-//       name: 'ghName',
-//       message: 'What is your GitHub user name?'
-//     },
-//     {
-//       type: 'input',
-//       name: 'ghRepo',
-//       message: 'What is the GitHub repo url for this project?'
-//     },
-//     {
-//       type: 'input',
-//       name: 'qProtocol',
-//       message: 'What is the best way to reach you with questions? Is there a protocol for questions?'
-//     }
-// ]) .then((answers) => console.log(answers));
