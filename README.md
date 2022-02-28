@@ -1,28 +1,28 @@
-# [Inquirer README Generator](https://github.com/DanielMrva/Inquirer_Readme_Generator) [![MIT](https://img.shields.io/badge/License-MIT-brightgreen)](https://opensource.org/licenses/MIT)
+# [**DUDE**](http://google.com/search?q=md+notation&rlz=1C1VDKB_enUS930US930&oq=md+notation&aqs=chrome..69i57j0i22i30l3.5174j0j7&sourceid=chrome&ie=UTF-8) [![MIT](https://img.shields.io/badge/License-MIT-brightgreen)](https://opensource.org/licenses/MIT)
   
   ## Description
-  This is a basic README generator that uses Inquirer prompts to create a usable README.md file from the command line. 
+  ~~CAR~~
   
   ## Installation
-  Describe the installation process.
+  `do the thing` 
   
   ## Usage 
-  In Node: node index.js. Prompts will walk you through the basic construction of the README, and then write the file in the root directory of the application.
+  do the thing \n do the other thing `${Snug}`
   
   ## Contribution
-  Fork the repo, make improvements, annotate the code with comments, and then push up fork and request a merge for review.
+  [I'm an inline-style link](https://www.google.com)
   
   ## Tests
-  Particularly long entries in the prompts have not been tested. 
+  ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1") 
   
   ## Questions
-  Questions can be sent to the email in my GitHub profile.
+  "don't do it" 'don't' `do it`
 
-  Feel free to follow or contact me at my GitHub page: [DanielMrva](https://github.com/DanielMrva)
+  Feel free to follow or contact me at my GitHub page: [*smug*](https://github.com/*smug*)
   
   
   ## Github Repository
-  [Inquirer README Generator](https://github.com/DanielMrva/Inquirer_Readme_Generator)
+  [**DUDE**](http://google.com/search?q=md+notation&rlz=1C1VDKB_enUS930US930&oq=md+notation&aqs=chrome..69i57j0i22i30l3.5174j0j7&sourceid=chrome&ie=UTF-8)
   
   ## License 
   MIT

@@ -125,6 +125,15 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, u
   
   ## Description
   ${description}
+
+  ## Table of Conents
+  [Installation](#Installation)
+  [Usage](#Usage)
+  [Contribution](#Contribution)
+  [Tests](#Tests)
+  [Questions](#Questions)
+  [Github Repository](#Github-Repository)
+  [License](#License)
   
   ## Installation
   ${installation}
@@ -150,7 +159,7 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, u
   ## License 
   ${license}`;
 
-//Initialization function; calls readmePrompt, and utilizes a promice (then) and then writes the file in a sychonous method WRITE MORE HERE: WHAT IS BENIFIT TO SYCHONOUS FS METHOD?...
+//Initialization function; calls readmePrompt, and utilizes a promice (then) and then writes the file in a sychonous method. 
 const init = () => {
   readmePrompt()
   .then((answers) =>
