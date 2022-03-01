@@ -1,8 +1,8 @@
-// TODO: Include packages needed for this application
+// Packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-//prompts build into a function
+// Prompts built into a function, runs through basic questions to generate Readme
 const readmePrompt = () => {
   return inquirer.prompt([
     {
@@ -21,9 +21,35 @@ const readmePrompt = () => {
       message: 'Breifly describe the installation process for your project.'
     },
     {
+    type: 'confirm',
+    name: 'installPic',
+    message: 'Do you want to include a screenshot with this section?',
+    },
+    {
+    type: 'input',
+    name: 'installPicDir',
+    message: 'What is the relative link or url link of your screenshot?',
+    when(answers) {
+      return answers.installPic;
+      },
+    },
+    {
       type: 'input',
       name: 'usage',
       message: 'Breifly describe the usage of this project.'
+    },
+    {
+      type: 'confirm',
+      name: 'usagePic',
+      message: 'Do you want to include a screenshot with this section?',
+    },
+    {
+      type: 'input',
+      name: 'usagePicDir',
+      message: 'What is the relative link or url link of your screenshot?',
+      when(answers) {
+        return answers.usagePic;
+        },
     },
     {
       type: 'list',
@@ -120,27 +146,31 @@ function getLicenseBadge(answers) {
 };
 
 //This is a deconstruction of the answers object, which is then parsed into the long template literal which provides the README format.
-const readmeText = ( {projectName, ghRepo, license, description, installation, usage, contribution, tests, qProtocol, ghName} ) => 
+const readmeText = ( {projectName, ghRepo, license, description, installation, installPicDir, usage, usagePicDir, contribution, tests, qProtocol, ghName} ) => 
   `# [${projectName}](${ghRepo}) [![${license}](${licenseBadge})](${licenseURL})
   
   ## Description
   ${description}
 
   ## Table of Conents
-  [Installation](#Installation)
-  [Usage](#Usage)
-  [Contribution](#Contribution)
-  [Tests](#Tests)
-  [Questions](#Questions)
-  [Github Repository](#Github-Repository)
-  [License](#License)
+   1. [Installation](#Installation)
+   1. [Usage](#Usage)
+   1. [Contribution](#Contribution)
+   1. [Tests](#Tests)
+   1. [Questions](#Questions)
+   1. [Github Repository](#Github-Repository)
+   1. [License](#License)
   
   ## Installation
   ${installation}
+
+  ![](${installPicDir})
   
   ## Usage 
   ${usage}
-  
+
+  ![](${usagePicDir})
+
   ## Contribution
   ${contribution}
   
@@ -159,15 +189,47 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, u
   ## License 
   ${license}`;
 
+
+// checks for presense of target directory for generated README files and if it does not exist, creates the folder.
+const folderGen = () => {
+  let dir = 'generated'
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+};
+
 //Initialization function; calls readmePrompt, and utilizes a promice (then) and then writes the file in a sychonous method. 
 const init = () => {
+  folderGen()
   readmePrompt()
   .then((answers) =>
   //The fs passes the two text-related functions through, with getLicenseBadge passing through readmeText.
-  fs.writeFileSync('README.md', readmeText(answers, getLicenseBadge(answers))))
-  .then(() => console.log('Looks like we created a README.md...'))  
+   fs.writeFileSync(`./generated/README.md`, readmeText(answers, getLicenseBadge(answers))))
+  .then(() => console.log('Looks like we created a README.md...'))
   .catch((err) => console.error(err))
 };
 
 //calls init function on app start.
 init();
+
+
+/**The function below is not functioning. 
+ * It is a reminder for future development goal:
+ * Write readme to new folder named after the project.
+ * Currently, it doesn't seem like answers persists past FS.mkdirSync.  
+ * Current Error:
+ * TypeError: Cannot read properties of undefined (reading 'projectName')
+    at C:\Users\mrvap\Code\Homework\DJM_WK9_HW\Inquirer_Readme_Generator\index.js:182:33
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+ */
+// 
+// const init = () => {
+//   readmePrompt()
+//   .then((answers) =>
+//   //The fs passes the two text-related functions through, with getLicenseBadge passing through readmeText.
+//   fs.mkdirSync(`${answers.projectName}`))
+//   .then((answers) =>
+//   fs.writeFileSync(`./${answers.projectName}/README.md`, readmeText(answers, getLicenseBadge(answers))))
+//   .then(() => console.log('Looks like we created a README.md...'))
+//   .catch((err) => console.error(err))
+// };
