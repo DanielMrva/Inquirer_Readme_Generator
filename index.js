@@ -153,13 +153,13 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, i
   ${description}
 
   ## Table of Conents
-   1. [Installation](#Installation)
-   1. [Usage](#Usage)
-   1. [Contribution](#Contribution)
-   1. [Tests](#Tests)
-   1. [Questions](#Questions)
-   1. [Github Repository](#Github-Repository)
-   1. [License](#License)
+   1. [Installation](#installation)
+   1. [Usage](#usage)
+   1. [Contribution](#contribution)
+   1. [Tests](#tests)
+   1. [Questions](#questions)
+   1. [Github Repository](#github-repository)
+   1. [License](#license)
   
   ## Installation
   ${installation}
