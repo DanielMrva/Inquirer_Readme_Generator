@@ -189,22 +189,19 @@ const readmeText = ( {projectName, ghRepo, license, description, installation, i
   ## License 
   ${license}`;
 
-
-// checks for presense of target directory for generated README files and if it does not exist, creates the folder.
-const folderGen = () => {
-  let dir = 'generated'
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
-  }
-};
-
-//Initialization function; calls readmePrompt, and utilizes a promice (then) and then writes the file in a sychonous method. 
+//initialization function runs the readmePrompt function, then takes in 
 const init = () => {
-  folderGen()
   readmePrompt()
+//checks to see if there is a dir with the name of the project, then if not, creates a dir with the name of the project 
+  .then((answers) => {
+    let dir = `${answers.projectName}`
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(`${answers.projectName}`)
+    }return answers
+  })
+//file writing section
   .then((answers) =>
-  //The fs passes the two text-related functions through, with getLicenseBadge passing through readmeText.
-   fs.writeFileSync(`./generated/README.md`, readmeText(answers, getLicenseBadge(answers))))
+  fs.writeFileSync(`./${answers.projectName}/README.md`, readmeText(answers, getLicenseBadge(answers))))
   .then(() => console.log('Looks like we created a README.md...'))
   .catch((err) => console.error(err))
 };
@@ -212,24 +209,3 @@ const init = () => {
 //calls init function on app start.
 init();
 
-
-/**The function below is not functioning. 
- * It is a reminder for future development goal:
- * Write readme to new folder named after the project.
- * Currently, it doesn't seem like answers persists past FS.mkdirSync.  
- * Current Error:
- * TypeError: Cannot read properties of undefined (reading 'projectName')
-    at C:\Users\mrvap\Code\Homework\DJM_WK9_HW\Inquirer_Readme_Generator\index.js:182:33
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
- */
-// 
-// const init = () => {
-//   readmePrompt()
-//   .then((answers) =>
-//   //The fs passes the two text-related functions through, with getLicenseBadge passing through readmeText.
-//   fs.mkdirSync(`${answers.projectName}`))
-//   .then((answers) =>
-//   fs.writeFileSync(`./${answers.projectName}/README.md`, readmeText(answers, getLicenseBadge(answers))))
-//   .then(() => console.log('Looks like we created a README.md...'))
-//   .catch((err) => console.error(err))
-// };
