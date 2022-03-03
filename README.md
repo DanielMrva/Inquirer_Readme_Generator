@@ -1,4 +1,4 @@
-# [Inquirer Readme Generator](https://github.com/DaielMrva/Inquirer_Readme_Generator) [![MIT](https://img.shields.io/badge/License-MIT-brightgreen)](https://opensource.org/licenses/MIT)
+# [Inquirer Readme Generator](https://github.com/DanielMrva/Inquirer_Readme_Generator) [![MIT](https://img.shields.io/badge/License-MIT-brightgreen)](https://opensource.org/licenses/MIT)
   
   ## Description
   Inquirer README Generator is a basic JavaScript command-line README generator to help in creating professional README.md for projects.  The technologies used include: JavaScript, Node, and Inquirer. 
